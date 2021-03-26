@@ -61,18 +61,6 @@ export async function getMeasurements(instanceName: string, query?: {}) {
   );
 }
 
-/**
- * 获得当前机器设备的测点时序
- */
-export function getMachineTS(instanceName: string, query?: {}) {
-  return api.k2Assets.get(
-    `/namespaces/{namespace_name}/asset_instances/${instanceName}/measurements/data/ts?${transform(
-      query,
-      {},
-    )}`,
-  );
-}
-
 /** 通用influxdb时序数据查询 **/
 export async function getInfluxdb(sql: string) {
   return api.influxdb.get('/query?q=' + sql);
