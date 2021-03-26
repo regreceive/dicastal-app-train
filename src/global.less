@@ -1,0 +1,32 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background-color: #eee;
+}
+
+#root {
+  height: 100%;
+}
+
+.box-area {
+  margin-bottom: 12px;
+  padding: 15px;
+  background-color: #fff;
+  box-shadow: 1px 1px 5px rgba(127, 127, 127, 0.3);
+  overflow: hidden;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// react-image-gallery没有初始状态下的全屏功能，css去掉图片的width的100%，从而能够判断用户点击遮罩位置，进行关闭处理
+.image-gallery-slide {
+  .image-gallery-image {
+    width: unset;
+  }
+}
+.gallery-thumb {
+  width: 70px;
+}
