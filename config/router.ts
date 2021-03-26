@@ -7,7 +7,7 @@ const routes: IBestAFSRoute[] = [
   },
   {
     path: '/welcome',
-    component: '@/layouts/BasicLayout',
+    component: '@/layouts/HolyGrailLayout',
     routes: [
       {
         path: '.',

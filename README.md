@@ -1,17 +1,7 @@
-# 前端应用模板
+# training-1 布局
 
-基于此模板可以创建前端应用
+## css布局相关教程
 
-## Getting Started
+[CSS Grid 网格布局教程](https://note.youdao.com/)
 
-Install dependencies,
-
-```bash
-$ yarn
-```
-
-Start the dev server,
-
-```bash
-$ yarn start
-```
+[CSS Flex 布局教程](https://note.youdao.com/)
