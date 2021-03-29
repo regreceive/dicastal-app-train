@@ -11,7 +11,7 @@ const FlexLayout: FC = (props) => {
           <div>5</div>
         </div>
       </div>
-      <div>column2</div>
+      <div>{props.children}</div>
     </div>
   );
 };
