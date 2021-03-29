@@ -1,43 +1,19 @@
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, useState } from 'react';
 import { Button } from 'antd';
-import { useClickAway } from 'ahooks';
+import styles from './index.less';
 
 const Main: FC = () => {
-  const [click, setClick] = useState(false);
-
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (click) {
-      log('单击了');
-    }
-  }, [click]);
-
-  const log = useCallback(
-    (text: string) => {
-      console.log(text);
-    },
-    [click],
-  );
-
-  const msg = useMemo(() => {
-    return 'msg: ' + click.toString();
-  }, [click]);
-
-  useEffect(() => {
-    console.log(ref.current);
-  }, []);
+  const [count, setCount] = useState(0);
 
   return (
-    <div>
-      <Button
-        onClick={() => setClick(true)}
-        type={click ? 'primary' : 'default'}
-      >
-        按钮
-      </Button>
-      <div>{click.toString()}</div>
-      <div ref={ref}>{msg}</div>
+    <div className={styles.container}>
+      <div>
+        <Button onClick={() => setCount((value) => value + 1)}>+</Button>
+      </div>
+      <div>{count}</div>
+      <div>
+        <Button onClick={() => setCount((value) => value - 1)}>-</Button>
+      </div>
     </div>
   );
 };
