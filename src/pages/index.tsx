@@ -1,47 +1,59 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import BoxArea from '@/pages/BoxArea';
-import { ColumnsType } from 'antd/lib/table';
-import moment from 'moment';
 import * as api from '@/services';
-import { Button, Table } from 'antd';
-
-const columns: ColumnsType<any> = [
-  {
-    title: '轮型',
-    dataIndex: 'product',
-  },
-  {
-    title: '模具',
-    dataIndex: 'tool',
-  },
-  {
-    title: '质检',
-    dataIndex: 'quality',
-  },
-  {
-    title: '质检时间',
-    dataIndex: 'time',
-    render: (value) => {
-      return moment(value).format('YYYY-MM-DD HH:mm:ss');
-    },
-  },
-];
+import { Button } from 'antd';
+import useChart from '@/sdk/useChart';
 
 const Main: FC = () => {
-  const [data, setData] = useState([]);
+  const [chartData, setChartData] = useState([]);
+  const { ref, setOption, showEmpty } = useChart();
 
-  const getSummary = useCallback(async () => {
-    const res = await api.getSummary('1');
-    setData(res.data);
+  // 请求时序数据
+  const getTS = useCallback(async () => {
+    const res = await api.getTS();
+    setChartData(res.data);
   }, []);
+
+  useEffect(() => {
+    if (chartData.length > 0) {
+      setOption({
+        tooltip: {
+          trigger: 'axis',
+        },
+        xAxis: {
+          type: 'category',
+        },
+        yAxis: {
+          type: 'value',
+        },
+        series: [
+          {
+            type: 'bar',
+            data: chartData,
+            encode: {
+              x: 0,
+              y: [1],
+            },
+          },
+          {
+            type: 'line',
+            data: chartData,
+            encode: {
+              x: 0,
+              y: [2],
+            },
+          },
+        ],
+      });
+    } else {
+      showEmpty();
+    }
+  }, [chartData]);
 
   return (
     <div>
-      <BoxArea
-        title="标题1"
-        rightArea={<Button onClick={getSummary}>刷新</Button>}
-      >
-        <Table columns={columns} dataSource={data} rowKey="id" />
+      <BoxArea title="标题1" rightArea={<Button onClick={getTS}>刷新</Button>}>
+        <div ref={ref} />
       </BoxArea>
     </div>
   );

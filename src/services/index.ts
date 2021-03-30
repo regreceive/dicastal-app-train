@@ -31,3 +31,8 @@ export async function getInfluxdb(sql: string) {
 export async function getSummary(id: string) {
   return api.gateway.get(`/api/list-data?id=${id}`);
 }
+
+/** 时序数据 */
+export async function getTS() {
+  return api.gateway.get(`/api/ts`);
+}
